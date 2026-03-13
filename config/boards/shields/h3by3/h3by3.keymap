@@ -5,12 +5,23 @@
  *   1  2  3
  *   4  5  6
  *   7  8  9
+ *
+ * ZMK Studio unlock: press all 4 corners simultaneously (N1+N3+N7+N9)
  */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    combos {
+        compatible = "zmk,combos";
+        combo_studio_unlock {
+            timeout-ms = <200>;
+            key-positions = <0 2 6 8>;
+            bindings = <&studio_unlock>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 

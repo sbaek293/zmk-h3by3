@@ -12,6 +12,9 @@
  *   RC(2,0) RC(2,1) RC(2,2)
  */
 
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <physical_layouts.dtsi>
+
 / {
     chosen {
         zmk,kscan = &kscan0;
@@ -46,6 +49,24 @@
             = <&gpio0 11 GPIO_ACTIVE_HIGH>
             , <&gpio1 4  GPIO_ACTIVE_HIGH>
             , <&gpio1 6  GPIO_ACTIVE_HIGH>
+            ;
+    };
+
+    physical_layout_0: physical_layout_0 {
+        compatible = "zmk,physical-layout";
+        display-name = "Default";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
+        keys                      //  w    h    x    y   rot   rx   ry
+            = <&key_physical_attrs 100 100    0    0     0    0    0>
+            , <&key_physical_attrs 100 100  100    0     0    0    0>
+            , <&key_physical_attrs 100 100  200    0     0    0    0>
+            , <&key_physical_attrs 100 100    0  100     0    0    0>
+            , <&key_physical_attrs 100 100  100  100     0    0    0>
+            , <&key_physical_attrs 100 100  200  100     0    0    0>
+            , <&key_physical_attrs 100 100    0  200     0    0    0>
+            , <&key_physical_attrs 100 100  100  200     0    0    0>
+            , <&key_physical_attrs 100 100  200  200     0    0    0>
             ;
     };
 };

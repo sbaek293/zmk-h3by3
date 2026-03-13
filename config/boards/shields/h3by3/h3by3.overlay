@@ -4,7 +4,7 @@
  *
  * Matrix wiring
  *   Rows : P1.13, P1.11, P0.10
- *   Cols : P0.11, P1.04, P1.06
+ *   Cols : P1.06, P1.04, P0.11
  *
  * Physical layout
  *   RC(0,0) RC(0,1) RC(0,2)
@@ -47,9 +47,9 @@
             ;
 
         col-gpios
-            = <&gpio0 11 GPIO_ACTIVE_HIGH>
+            = <&gpio1 6  GPIO_ACTIVE_HIGH>
             , <&gpio1 4  GPIO_ACTIVE_HIGH>
-            , <&gpio1 6  GPIO_ACTIVE_HIGH>
+            , <&gpio0 11 GPIO_ACTIVE_HIGH>
             ;
     };
 

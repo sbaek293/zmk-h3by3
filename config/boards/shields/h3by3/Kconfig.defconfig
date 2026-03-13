@@ -1,0 +1,6 @@
+if SHIELD_H3BY3
+
+config ZMK_KEYBOARD_NAME
+    default "h3by3"
+
+endif

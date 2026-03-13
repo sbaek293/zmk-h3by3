@@ -1,0 +1,2 @@
+config SHIELD_H3BY3
+    def_bool $(shields_list_contains,h3by3)

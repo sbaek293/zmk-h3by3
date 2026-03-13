@@ -39,6 +39,35 @@ ZMK firmware configuration for a **3×3 handwired macropad** powered by the [Nic
 
 - **ZMK Studio** – real-time keymap editing over USB without reflashing firmware (`CONFIG_ZMK_STUDIO=y`)
 
+## Debugging report
+
+Two build errors were found and fixed:
+
+### Bug 1 — Missing `matrix_transform.h` include in `h3by3.overlay`
+
+**Error:**
+```
+devicetree error: h3by3.overlay:27 (column 13): parse error: expected number or parenthesized expression
+```
+
+**Root cause:** The `RC(row, col)` macro used inside the `map = < ... >` block is defined in `<dt-bindings/zmk/matrix_transform.h>`, but that header was not included in `h3by3.overlay`. The devicetree compiler therefore did not recognize `RC(0,0)` as a valid expression.
+
+**Fix:** Added `#include <dt-bindings/zmk/matrix_transform.h>` at the top of `h3by3.overlay`.
+
+---
+
+### Bug 2 — No physical layout defined while `CONFIG_ZMK_STUDIO=y`
+
+**Error:**
+```
+error: static assertion failed: "ISSUE FOUND: Keyboards require additional configuration to allow for
+firmware with ZMK Studio enabled."
+```
+
+**Root cause:** `CONFIG_ZMK_STUDIO=y` was set in `h3by3.conf`, but the shield DTS did not define a `zmk,physical-layout` node. ZMK Studio requires at least one physical layout that describes the real-world position of every key; without it the build fails at compile-time with a static assertion.
+
+**Fix:** Added `#include <physical_layouts.dtsi>` and a `zmk,physical-layout` node (`physical_layout_0`) to `h3by3.overlay`. The node lists all nine 1 u keys in a 3 × 3 grid with their x/y positions (in hundredths of a key unit), referencing the existing `default_transform` and `kscan0`.
+
 ## Building
 
 This is a standard ZMK [user config repository](https://zmk.dev/docs/user-setup).  
